@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id "org.flywaydb.flyway" version "9.0.1"
+}
+
+group 'app.raiko'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+flyway {
+    url = 'jdbc:postgresql://localhost:5000/intern'
+    user = 'admin'
+    password = 'admin'
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    implementation 'org.postgresql:postgresql:42.4.0'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
+
+test {
+    useJUnitPlatform()
+}
