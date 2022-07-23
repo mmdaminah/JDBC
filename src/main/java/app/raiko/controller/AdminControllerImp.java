@@ -6,7 +6,7 @@ import app.raiko.model.domain.Admin;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AdminServiceImp implements AdminService {
+public class AdminControllerImp implements AdminController {
   private AdminDao adminDao;
 
   @Override

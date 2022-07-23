@@ -2,14 +2,16 @@ package app.raiko.model.dao;
 
 import app.raiko.model.datasource.DataSource;
 import app.raiko.model.domain.Admin;
+import lombok.AllArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class AdminJdbcDao implements AdminDao {
-  private final DataSource dataSource = new DataSource();
+  private final DataSource dataSource;
 
   @Override
   public Optional<Admin> get(Integer id) {

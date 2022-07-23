@@ -1,6 +1,6 @@
 package app.raiko.view;
 
-import app.raiko.controller.AdminService;
+import app.raiko.controller.AdminController;
 import app.raiko.exception.NotFoundAdminException;
 import app.raiko.model.domain.Admin;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 @AllArgsConstructor
 public class AdminFounderView {
 
-  private AdminService adminService;
+  private AdminController adminController;
 
   public void show() {
     System.out.println("please enter admin id : ");
@@ -18,7 +18,7 @@ public class AdminFounderView {
 
     try {
 
-      var foundAdmin = adminService.findAdmin(adminId);
+      var foundAdmin = adminController.findAdmin(adminId);
 
       showAdminInformation(foundAdmin);
 
