@@ -1,6 +1,6 @@
-package app.raiko.model.dao;
+package app.raiko.model.admin.dao;
 
-import app.raiko.model.domain.Admin;
+import app.raiko.model.admin.domain.Admin;
 
 import java.util.List;
 import java.util.Optional;

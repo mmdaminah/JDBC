@@ -1,7 +1,7 @@
 package app.raiko.view;
 
-import app.raiko.controller.AdminControllerImp;
-import app.raiko.model.dao.AdminJdbcDao;
+import app.raiko.controller.admin.AdminControllerImp;
+import app.raiko.model.admin.dao.AdminJdbcDao;
 import app.raiko.model.datasource.DataSource;
 
 public class IndexViewFactory {

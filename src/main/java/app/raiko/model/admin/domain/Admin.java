@@ -1,4 +1,4 @@
-package app.raiko.model.domain;
+package app.raiko.model.admin.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

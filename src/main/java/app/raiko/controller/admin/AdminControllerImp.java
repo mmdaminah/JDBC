@@ -1,8 +1,8 @@
-package app.raiko.controller;
+package app.raiko.controller.admin;
 
 import app.raiko.exception.NotFoundAdminException;
-import app.raiko.model.dao.AdminDao;
-import app.raiko.model.domain.Admin;
+import app.raiko.model.admin.dao.AdminDao;
+import app.raiko.model.admin.domain.Admin;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

@@ -1,8 +1,8 @@
 package app.raiko.view;
 
-import app.raiko.controller.AdminController;
+import app.raiko.controller.admin.AdminController;
 import app.raiko.exception.NotFoundAdminException;
-import app.raiko.model.domain.Admin;
+import app.raiko.model.admin.domain.Admin;
 import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
