@@ -1,4 +1,4 @@
-package app.raiko;
+package app.raiko.model.datasource;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ public class DataSource {
   private static String username = "admin";
   private static String password = "admin";
 
-  public static Connection getConnection() {
+  public Connection getConnection() {
     try {
       var connection = DriverManager.getConnection(databaseUrl, username, password);
       System.out.println("ارتباط با دیتابیس برقرار شد");
