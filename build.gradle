@@ -11,9 +11,9 @@ repositories {
 }
 
 flyway {
-    url = 'jdbc:postgresql://localhost:5000/intern'
-    user = 'admin'
-    password = 'admin'
+    url = 'jdbc:postgresql://localhost:5432/jdbc_project_v2'
+    user = 'postgres'
+    password = '22552255'
 }
 
 dependencies {

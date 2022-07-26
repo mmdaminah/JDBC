@@ -16,4 +16,9 @@ public class AdminControllerImp implements AdminController {
         .orElseThrow(
             () -> new NotFoundAdminException("not found any admin with id : %s".formatted(id)));
   }
+
+  @Override
+  public boolean LoginAdmin(String userName, String password) {
+    return adminDao.login(userName,password);
+  }
 }

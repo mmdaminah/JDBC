@@ -4,4 +4,5 @@ import app.raiko.model.admin.domain.Admin;
 
 public interface AdminController {
   Admin findAdmin(Integer id);
+  boolean LoginAdmin(String userName, String password);
 }

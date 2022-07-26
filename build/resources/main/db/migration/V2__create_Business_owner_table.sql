@@ -1,0 +1,1 @@
+select first_name from "Admin" where username='mmdi' and password='12345'

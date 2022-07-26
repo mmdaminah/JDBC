@@ -7,6 +7,7 @@ import java.util.Scanner;
 @AllArgsConstructor
 public class IndexView {
   private AdminFounderView adminFounderView;
+  private AdminLogin adminLoginView;
 
   public void mainMenu() {
     var continueApp = true;
@@ -14,6 +15,7 @@ public class IndexView {
 
     System.out.println("""
                                1) found admin
+                               2)login
                                """);
 
     System.out.println("your action : ");
@@ -21,6 +23,8 @@ public class IndexView {
 
     switch (operator){
       case 1 -> adminFounderView.show();
+    } switch (operator){
+      case 2 -> adminLoginView.show();
     }
 
 
