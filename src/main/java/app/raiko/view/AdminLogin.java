@@ -4,12 +4,18 @@ import app.raiko.controller.admin.AdminController;
 import app.raiko.exception.NotFoundAdminException;
 import app.raiko.model.admin.domain.Admin;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.management.ConstructorParameters;
 import java.util.Scanner;
 
 @AllArgsConstructor
+@Setter
+@Getter
 public class AdminLogin {
     private AdminController adminController;
+    private Admin admin;
 
 
     public void show() {
@@ -20,12 +26,8 @@ public class AdminLogin {
 
         try {
             var LoginAdmin = adminController.LoginAdmin(adminUserName,adminPassword);
-
-            if (LoginAdmin) {
-                System.out.println("welcome!!!");
-
-            }
-            else System.out.println("user not found");
+            System.out.println("welcome");
+            setAdmin(LoginAdmin);
         } catch (NotFoundAdminException e) {
             showError(e.getMessage());
         }
@@ -35,3 +37,4 @@ public class AdminLogin {
         System.out.println(message);
     }
 }
+

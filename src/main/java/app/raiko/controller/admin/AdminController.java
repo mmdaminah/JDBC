@@ -2,7 +2,9 @@ package app.raiko.controller.admin;
 
 import app.raiko.model.admin.domain.Admin;
 
+import java.util.Optional;
+
 public interface AdminController {
   Admin findAdmin(Integer id);
-  boolean LoginAdmin(String userName, String password);
+   Admin LoginAdmin(String userName, String password);
 }

@@ -18,7 +18,7 @@ public class AdminControllerImp implements AdminController {
   }
 
   @Override
-  public boolean LoginAdmin(String userName, String password) {
-    return adminDao.login(userName,password);
+  public Admin LoginAdmin(String userName, String password) {
+    return adminDao.login(userName,password).orElseThrow(()->new NotFoundAdminException("Admin not found"));
   }
 }

@@ -30,11 +30,14 @@ public class AdminJdbcDao implements AdminDao {
         if (foundAdmin.next()) {
           return Optional.of(
               new Admin(
-                  id,
-                  foundAdmin.getString("first_name"),
-                  foundAdmin.getString("last_name"),
-                  foundAdmin.getString("username"),
-                  foundAdmin.getString("password")));
+                      foundAdmin.getInt("id"),
+                      foundAdmin.getString("first_name"),
+                      foundAdmin.getString("last_name"),
+                      foundAdmin.getString("username"),
+                      foundAdmin.getString("password"),
+                      foundAdmin.getString("phone_number"),
+                      foundAdmin.getInt("creator"),
+                      foundAdmin.getBoolean("super_admin")));
         } else return Optional.empty();
       }
 
@@ -58,7 +61,7 @@ public class AdminJdbcDao implements AdminDao {
 
 
 
-  public boolean login(String userName, String password) {
+  public Optional<Admin> login(String userName, String password) {
     try (var connection = dataSource.getConnection()) {
 
       var selectSql = """
@@ -73,8 +76,18 @@ public class AdminJdbcDao implements AdminDao {
 
 var resultset=statement.executeQuery();
         if ( resultset.next() ) {
-     return true;
-        } else return false;
+
+          return Optional.of(
+                  new Admin(
+                          resultset.getInt("id"),
+                          resultset.getString("first_name"),
+                          resultset.getString("last_name"),
+                          resultset.getString("username"),
+                          resultset.getString("password"),
+                          resultset.getString("phone_number"),
+                          resultset.getInt("creator"),
+                          resultset.getBoolean("super_admin")));
+        } else return Optional.empty();
       }
 
     } catch (SQLException e) {

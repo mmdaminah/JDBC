@@ -11,7 +11,7 @@ public interface AdminDao {
   List<Admin> getAll();
 
   boolean update(Integer id, Admin admin);
-  boolean login(String userName, String password);
+  Optional<Admin> login(String userName, String password);
 
   boolean delete(Integer id);
 
