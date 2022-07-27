@@ -16,21 +16,34 @@ import java.util.Scanner;
 public class AdminLogin {
     private AdminController adminController;
     private Admin admin;
+    private AdminMenu adminMenu;
 
 
     public void show() {
-        System.out.println("please enter your username : ");
-        var adminUserName = new Scanner(System.in).next();
-        System.out.println("please enter your password : ");
-        var adminPassword = new Scanner(System.in).next();
 
-        try {
-            var LoginAdmin = adminController.LoginAdmin(adminUserName,adminPassword);
-            System.out.println("welcome");
-            setAdmin(LoginAdmin);
-        } catch (NotFoundAdminException e) {
-            showError(e.getMessage());
-        }
+        var countOfTry=0;
+
+        do {
+            System.out.println("please enter your username : ");
+            var adminUserName = new Scanner(System.in).next();
+            System.out.println("please enter your password : ");
+            var adminPassword = new Scanner(System.in).next();
+
+            try {
+                var LoginAdmin = adminController.LoginAdmin(adminUserName,adminPassword);
+                System.out.println("welcome");
+                setAdmin(LoginAdmin);
+                adminMenu.Loginmenu(admin);
+                return;
+            } catch (NotFoundAdminException e) {
+                countOfTry++;
+                showError(e.getMessage());
+            }
+
+
+        }while (countOfTry<3);
+
+
     }
 
     private void showError(String message) {

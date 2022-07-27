@@ -11,9 +11,11 @@ public class IndexViewFactory {
     var adminDao = new AdminJdbcDao(dataSource);
     var adminController = new AdminControllerImp(adminDao);
     var adminFounder = new AdminFounderView(adminController);
-    var adminLogin = new AdminLogin(adminController,null);
-    var adminInfo = new AdminShowInfo(adminLogin);
+    var adminInfo = new AdminShowInfo();
+    var showAllAdmins=new ShowAllAdmins(adminController);
+    var adminMenu=new AdminMenu(adminInfo,showAllAdmins);
+    var adminLogin = new AdminLogin(adminController,null,adminMenu);
 
-    return new IndexView(adminFounder,adminLogin,adminInfo);
+    return new IndexView(adminFounder,adminLogin);
   }
 }

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface AdminDao {
   Optional<Admin> get(Integer id);
 
-  List<Admin> getAll();
+  List<Admin> getAll(Admin admin);
 
   boolean update(Integer id, Admin admin);
   Optional<Admin> login(String userName, String password);

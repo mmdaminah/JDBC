@@ -13,7 +13,6 @@ public class DataSource {
   public Connection getConnection() {
     try {
       var connection = DriverManager.getConnection(databaseUrl, username, password);
-      System.out.println("ارتباط با دیتابیس برقرار شد");
       return connection;
     } catch (SQLException e) {
       throw new RuntimeException("ارتباط با دیتابیس برقرار نشد");
