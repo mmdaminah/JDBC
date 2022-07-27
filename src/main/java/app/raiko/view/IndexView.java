@@ -15,7 +15,12 @@ public class IndexView {
 
   public void mainMenu() {
     var continueApp = true;
-
+    var superAdminAvailable = adminFounderView.getSuperAdmin();
+    if(!superAdminAvailable){
+      System.out.println("No Super Admin Found!");
+      System.out.println("Creating Super Admin...");
+      adminFounderView.createAdmin(null);
+    }
 
     System.out.println("""
                               please login

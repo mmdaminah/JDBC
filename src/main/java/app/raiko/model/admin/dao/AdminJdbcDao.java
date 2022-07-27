@@ -20,7 +20,7 @@ public class AdminJdbcDao implements AdminDao {
     try (var connection = dataSource.getConnection()) {
 
       var selectSql = """
-          select * from "Admin" where id = ? limit 1;
+          select * from admin where id = ? limit 1;
 """;
 
       try (var statement = connection.prepareStatement(selectSql)) {
@@ -69,7 +69,7 @@ public class AdminJdbcDao implements AdminDao {
     try (var connection = dataSource.getConnection()) {
 
       var selectSql = """
-          select * from "Admin" ;
+          select * from admin ;
 """;
 
       try (var statement = connection.prepareStatement(selectSql)) {
@@ -116,7 +116,7 @@ public class AdminJdbcDao implements AdminDao {
     try (var connection = dataSource.getConnection()) {
 
       var selectSql = """
-          select * from "Admin" where username = ? and password= ? ;
+          select * from admin where username = ? and password= ? ;
 """;
 
       try (var statement = connection.prepareStatement(selectSql)) {
@@ -152,8 +152,46 @@ var resultset=statement.executeQuery();
     return false;
   }
 
+
+
   @Override
-  public boolean create(Admin admin) {
-    return false;
+  public boolean findSuperAdmin(){
+    try(var connection = dataSource.getConnection()){
+      var query = "select * from admin where super_admin = true";
+      try(var statement = connection.prepareStatement(query)){
+        var result = statement.executeQuery();
+        return result.next();
+      }
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+  @Override
+  public boolean create(Admin admin){
+    try(var connection = dataSource.getConnection()){
+      var query = """
+                   insert into admin( first_name, last_name,
+                                       username , password, 
+                                       phone_number,
+                                       super_admin)
+                    values(?,?,?,?,?,?)                    
+                    """;
+      try(var statement = connection.prepareStatement(query)){
+        statement.setString(1,admin.getFirstName());
+        statement.setString(2,admin.getLastName());
+        statement.setString(3,admin.getUsername());
+        statement.setString(4,admin.getPassword());
+        statement.setString(5,admin.getPhoneNumber());
+//        statement.setInt(6,admin.getCreator());
+        statement.setBoolean(6,admin.getSuperAdmin());
+        return statement.execute();
+      }
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
   }
 }
+
+

@@ -28,4 +28,10 @@ public class AdminControllerImp implements AdminController {
   public List<Admin> getAll(Admin admin) {
     return adminDao.getAll(admin);
   }
+  public boolean findSuperAdmin(){
+    return adminDao.findSuperAdmin();
+  }
+  public boolean createAdmin(Admin admin){
+    return adminDao.create(admin);
+  }
 }

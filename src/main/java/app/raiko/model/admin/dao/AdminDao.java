@@ -16,4 +16,5 @@ public interface AdminDao {
   boolean delete(Integer id);
 
   boolean create(Admin admin);
+  boolean findSuperAdmin();
 }

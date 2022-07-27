@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface AdminController {
   Admin findAdmin(Integer id);
    Admin LoginAdmin(String userName, String password);
-
+    boolean findSuperAdmin();
+    boolean createAdmin(Admin admin);
    List<Admin> getAll(Admin admin);
 }
