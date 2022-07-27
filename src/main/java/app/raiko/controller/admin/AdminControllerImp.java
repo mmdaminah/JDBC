@@ -5,6 +5,8 @@ import app.raiko.model.admin.dao.AdminDao;
 import app.raiko.model.admin.domain.Admin;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class AdminControllerImp implements AdminController {
   private AdminDao adminDao;
@@ -20,5 +22,10 @@ public class AdminControllerImp implements AdminController {
   @Override
   public Admin LoginAdmin(String userName, String password) {
     return adminDao.login(userName,password).orElseThrow(()->new NotFoundAdminException("Admin not found"));
+  }
+
+  @Override
+  public List<Admin> getAll(Admin admin) {
+    return adminDao.getAll(admin);
   }
 }

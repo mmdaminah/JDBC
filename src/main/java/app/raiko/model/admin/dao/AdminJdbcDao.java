@@ -1,11 +1,13 @@
 package app.raiko.model.admin.dao;
 
+import app.raiko.exception.NotFoundAdminException;
 import app.raiko.model.admin.domain.Admin;
 import app.raiko.model.datasource.DataSource;
 import lombok.AllArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,10 +49,59 @@ public class AdminJdbcDao implements AdminDao {
     }
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
   @Override
-  public List<Admin> getAll() {
-    return null;
+  public List<Admin> getAll(Admin admin) {
+
+    if (admin.getSuper_admin()){
+
+    try (var connection = dataSource.getConnection()) {
+
+      var selectSql = """
+          select * from "Admin" ;
+""";
+
+      try (var statement = connection.prepareStatement(selectSql)) {
+
+
+        ResultSet foundAdmin = statement.executeQuery();
+
+        var AllAdmins=new ArrayList<Admin>();
+        while (foundAdmin.next()) {
+          AllAdmins.add(
+                  new Admin(
+                          foundAdmin.getInt("id"),
+                          foundAdmin.getString("first_name"),
+                          foundAdmin.getString("last_name"),
+                          foundAdmin.getString("username"),
+                          foundAdmin.getString("password"),
+                          foundAdmin.getString("phone_number"),
+                          foundAdmin.getInt("creator"),
+                          foundAdmin.getBoolean("super_admin")));
+        }
+        return AllAdmins;
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException("در اجرای پرس و جو از دیتابیس خطایی رخ داد!");
+    }
+    }
+    else throw new NotFoundAdminException("فقط سوپرادمین می تواند لیست را ببیند");
   }
+
+
 
   @Override
   public boolean update(Integer id, Admin admin) {

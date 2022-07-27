@@ -1,1 +1,1 @@
-select * from "Admin" where username='mmdi' and password='12345'
+select * from "Admin";
