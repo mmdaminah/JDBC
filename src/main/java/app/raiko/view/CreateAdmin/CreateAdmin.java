@@ -13,6 +13,7 @@ public class CreateAdmin {
     }
 
     public void show(Admin admin){
+        if(admin.getSuperAdmin()){
         var reader = new Scanner(System.in);
         System.out.println("Please insert first name : ");
         var firstName = reader.next();
@@ -37,6 +38,10 @@ public class CreateAdmin {
         }
         catch (RuntimeException e){
             System.out.println(e.getMessage());
+        }
+        }
+        else {
+            System.out.println("Only Super Admin Can Create Admin");
         }
     }
 }
