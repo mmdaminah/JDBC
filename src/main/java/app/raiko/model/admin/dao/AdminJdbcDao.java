@@ -19,8 +19,8 @@ public class AdminJdbcDao implements AdminDao {
   public Optional<Admin> get(Integer id) {
     try (var connection = dataSource.getConnection()) {
 
-      var selectSql = """
-          select * from admin where id = ? limit 1;
+      var selectSql = """ 
+select * from admin where id = ? limit 1;
 """;
 
       try (var statement = connection.prepareStatement(selectSql)) {
@@ -95,10 +95,10 @@ public class AdminJdbcDao implements AdminDao {
 
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException("در اجرای پرس و جو از دیتابیس خطایی رخ داد!");
+      throw new RuntimeException("something went wrong with the query");
     }
     }
-    else throw new NotFoundAdminException("فقط سوپرادمین می تواند لیست را ببیند");
+    else throw new NotFoundAdminException("Only super admin can view this list");
   }
 
 
