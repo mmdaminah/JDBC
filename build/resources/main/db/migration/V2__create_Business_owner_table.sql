@@ -1,0 +1,1 @@
+select * from "Business_owner";
