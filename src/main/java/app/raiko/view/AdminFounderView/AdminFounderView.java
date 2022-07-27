@@ -1,4 +1,4 @@
-package app.raiko.view;
+package app.raiko.view.AdminFounderView;
 
 import app.raiko.controller.admin.AdminController;
 import app.raiko.exception.NotFoundAdminException;

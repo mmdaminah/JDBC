@@ -1,6 +1,8 @@
-package app.raiko.view;
+package app.raiko.view.Menu;
 
 import app.raiko.model.admin.domain.Admin;
+import app.raiko.view.AdminShow.AdminShowInfo;
+import app.raiko.view.AdminShow.ShowAllAdmins;
 import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
@@ -11,7 +13,7 @@ public class AdminMenu {
     private ShowAllAdmins showAllAdmins;
 
 
-    void Loginmenu(Admin admin){
+    public void Loginmenu(Admin admin){
         System.out.println("""
                        
                                1)myInformations

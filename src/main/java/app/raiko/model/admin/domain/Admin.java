@@ -13,7 +13,7 @@ public class Admin {
   private String lastName;
   private String username;
   private String password;
-  private String phone_number;
-  private Integer creator=0;
-  private Boolean super_admin;
+  private String phoneNumber;
+  private Integer creator;
+  private Boolean superAdmin;
 }

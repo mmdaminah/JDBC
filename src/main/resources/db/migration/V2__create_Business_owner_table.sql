@@ -1,1 +1,1 @@
-select * from "Admin";
+select * from "Business_owner";

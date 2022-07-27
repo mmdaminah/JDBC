@@ -1,13 +1,13 @@
-package app.raiko.view;
+package app.raiko.view.AdminLogin;
 
 import app.raiko.controller.admin.AdminController;
 import app.raiko.exception.NotFoundAdminException;
 import app.raiko.model.admin.domain.Admin;
+import app.raiko.view.Menu.AdminMenu;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.management.ConstructorParameters;
 import java.util.Scanner;
 
 @AllArgsConstructor

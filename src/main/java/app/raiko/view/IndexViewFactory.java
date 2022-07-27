@@ -3,6 +3,11 @@ package app.raiko.view;
 import app.raiko.controller.admin.AdminControllerImp;
 import app.raiko.model.admin.dao.AdminJdbcDao;
 import app.raiko.model.datasource.DataSource;
+import app.raiko.view.AdminFounderView.AdminFounderView;
+import app.raiko.view.AdminLogin.AdminLogin;
+import app.raiko.view.AdminShow.AdminShowInfo;
+import app.raiko.view.AdminShow.ShowAllAdmins;
+import app.raiko.view.Menu.AdminMenu;
 
 public class IndexViewFactory {
 

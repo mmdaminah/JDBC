@@ -64,7 +64,7 @@ public class AdminJdbcDao implements AdminDao {
   @Override
   public List<Admin> getAll(Admin admin) {
 
-    if (admin.getSuper_admin()){
+    if (admin.getSuperAdmin()){
 
     try (var connection = dataSource.getConnection()) {
 
@@ -112,7 +112,7 @@ public class AdminJdbcDao implements AdminDao {
 
 
 
-  public Optional<Admin> login(String userName, String password) {
+  public Optional<Admin> login(String username, String password) {
     try (var connection = dataSource.getConnection()) {
 
       var selectSql = """
@@ -121,7 +121,7 @@ public class AdminJdbcDao implements AdminDao {
 
       try (var statement = connection.prepareStatement(selectSql)) {
 
-        statement.setString(1, userName);
+        statement.setString(1, username);
         statement.setString(2, password);
 
 
@@ -147,16 +147,6 @@ var resultset=statement.executeQuery();
     }
 
   }
-
-
-
-
-
-
-
-
-
-
   @Override
   public boolean delete(Integer id) {
     return false;
