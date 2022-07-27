@@ -17,4 +17,6 @@ public interface AdminDao {
 
   boolean create(Admin admin);
   boolean findSuperAdmin();
+  boolean createSuperAdmin(Admin admin);
+  void updatePassword(Integer id, String password);
 }
