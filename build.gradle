@@ -13,7 +13,7 @@ repositories {
 flyway {
     url = 'jdbc:postgresql://localhost:5432/jdbc_project_v2'
     user = 'postgres'
-    password = '22552255'
+    password = '13761376'
 }
 
 dependencies {
@@ -31,3 +31,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+sourceCompatibility = JavaVersion.VERSION_15
+targetCompatibility = JavaVersion.VERSION_15

@@ -11,4 +11,6 @@ public interface AdminController {
     boolean findSuperAdmin();
     boolean createAdmin(Admin admin);
    List<Admin> getAll(Admin admin);
+   boolean createSuperAdmin(Admin admin);
+   void updatePassword(Integer id, String password);
 }

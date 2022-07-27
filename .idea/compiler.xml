@@ -12,6 +12,6 @@
         <module name="intern.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="15" />
   </component>
 </project>

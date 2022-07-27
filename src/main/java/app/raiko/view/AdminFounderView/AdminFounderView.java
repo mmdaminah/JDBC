@@ -55,23 +55,13 @@ public class AdminFounderView {
     var password = reader.next();
     System.out.println("Please insert phone number : ");
     var phoneNumber = reader.next();
-    Integer creator;
-    boolean superAdmin;
-    if(loginedAdmin == null){
-      creator = null;
-      superAdmin = true;
-    }
-    else {
-      creator = loginedAdmin.getCreator();
-      superAdmin = false;
-    }
     try{
       var result = adminController.createAdmin(
               new Admin(
                       0,
                       firstName,lastName,
                       username, password,
-                      phoneNumber,creator,superAdmin
+                      phoneNumber,loginedAdmin.getCreator(),false
               )
       );
       System.out.println(result);
@@ -80,7 +70,5 @@ public class AdminFounderView {
       showError(e.getMessage());
     }
   }
-  public boolean getSuperAdmin(){
-    return adminController.findSuperAdmin();
-  }
+
 }

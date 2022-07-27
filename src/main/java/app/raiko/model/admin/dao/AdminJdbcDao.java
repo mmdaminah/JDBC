@@ -19,8 +19,8 @@ public class AdminJdbcDao implements AdminDao {
   public Optional<Admin> get(Integer id) {
     try (var connection = dataSource.getConnection()) {
 
-      var selectSql = """
-          select * from admin where id = ? limit 1;
+      var selectSql = """ 
+select * from admin where id = ? limit 1;
 """;
 
       try (var statement = connection.prepareStatement(selectSql)) {
@@ -95,10 +95,10 @@ public class AdminJdbcDao implements AdminDao {
 
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException("در اجرای پرس و جو از دیتابیس خطایی رخ داد!");
+      throw new RuntimeException("something went wrong with the query");
     }
     }
-    else throw new NotFoundAdminException("فقط سوپرادمین می تواند لیست را ببیند");
+    else throw new NotFoundAdminException("Only super admin can view this list");
   }
 
 
@@ -173,7 +173,33 @@ var resultset=statement.executeQuery();
       var query = """
                    insert into admin( first_name, last_name,
                                        username , password, 
-                                       phone_number,
+                                       phone_number,creator, 
+                                       super_admin)
+                    values(?,?,?,?,?,?,?)                    
+                    """;
+      try(var statement = connection.prepareStatement(query)){
+        statement.setString(1,admin.getFirstName());
+        statement.setString(2,admin.getLastName());
+        statement.setString(3,admin.getUsername());
+        statement.setString(4,admin.getPassword());
+        statement.setString(5,admin.getPhoneNumber());
+        statement.setInt(6,admin.getCreator());
+        statement.setBoolean(7,admin.getSuperAdmin());
+        return statement.execute();
+      }
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public boolean createSuperAdmin(Admin admin){
+    try(var connection = dataSource.getConnection()){
+      var query = """
+                   insert into admin( first_name, last_name,
+                                       username , password, 
+                                       phone_number, 
                                        super_admin)
                     values(?,?,?,?,?,?)                    
                     """;
@@ -183,9 +209,23 @@ var resultset=statement.executeQuery();
         statement.setString(3,admin.getUsername());
         statement.setString(4,admin.getPassword());
         statement.setString(5,admin.getPhoneNumber());
-//        statement.setInt(6,admin.getCreator());
         statement.setBoolean(6,admin.getSuperAdmin());
         return statement.execute();
+      }
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+  public void updatePassword(Integer id, String password){
+    try(var connection = dataSource.getConnection()){
+      var query = "select * from admin where id = ?";
+      try(var statement = connection.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE)){
+        statement.setInt(1,id);
+        var result = statement.executeQuery();
+        result.next();
+        result.updateString("password",password);
+        result.updateRow();
       }
     }
     catch (SQLException e){

@@ -34,4 +34,12 @@ public class AdminControllerImp implements AdminController {
   public boolean createAdmin(Admin admin){
     return adminDao.create(admin);
   }
+  public boolean createSuperAdmin(Admin admin){
+    return adminDao.createSuperAdmin(admin);
+  }
+
+  @Override
+  public void updatePassword(Integer id, String password) {
+    adminDao.updatePassword(id,password);
+  }
 }
