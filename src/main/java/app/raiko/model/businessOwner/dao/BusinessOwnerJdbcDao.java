@@ -114,4 +114,24 @@ public class BusinessOwnerJdbcDao implements BusinessOwnerDao{
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public boolean edit_businessOwner(Integer id, BusinessOwner businessOwner) {
+        try(var connection = dataSource.getConnection()){
+            var query = "select * from business_owner where id = ?";
+            try(var statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE)){
+                statement.setInt(1,id);
+                var result = statement.executeQuery();
+                result.next();
+                result.updateString("first_name",businessOwner.getFirstName());
+                result.updateString("last_name", businessOwner.getLastName());
+                result.updateString("national_code", businessOwner.getNationalCode());
+                result.updateString("phone_number", businessOwner.getPhoneNumber());
+                result.updateRow();
+            }
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
 }

@@ -15,7 +15,7 @@ public class AdminMenu {
         var shopView = ShopViewFactory.create();
         while(true){
             System.out.println("""
-                                   1)myInformations
+                                   1)Get My Informations
                                    2)List Of Admins
                                    3)Create BusinessOwner
                                    4)Create New Admin
@@ -23,7 +23,8 @@ public class AdminMenu {
                                    6)Get All Shops
                                    7)Get Shop By ID
                                    8)Update Shop By ID
-                                   15)Exit
+                                   9)Edit BusinessOwner
+                                   10)Exit
                                    """);
             System.out.println("your action : ");
             var operator = new Scanner(System.in).nextInt();
@@ -36,7 +37,8 @@ public class AdminMenu {
                 case 6 -> shopView.getAllShops();
                 case 7 -> shopView.getShop();
                 case 8 -> shopView.updateShop();
-                case 15 -> System.exit(0);
+                case 9 -> businessView.updateBusinessOwner();
+                case 10 -> System.exit(0);
             }
 
         }

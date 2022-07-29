@@ -12,5 +12,6 @@ public interface BusinessOwnerDao {
     List<BusinessOwner> getAll();
     Optional<BusinessOwner> search(String firstName, String lastName);
     boolean delete(Integer id);
+    boolean edit_businessOwner(Integer id,BusinessOwner businessOwner);
 
 }

@@ -24,4 +24,8 @@ public class BusinessOwnerControllerImp implements BusinessOwnerController{
                 ()-> new NotFoundException("Business Owner Not Found")
         );
     }
+    @Override
+    public boolean editBusinessOwner(int id, BusinessOwner businessOwner) {
+        return businessOwnerDao.edit_businessOwner(id,businessOwner);
+    }
 }

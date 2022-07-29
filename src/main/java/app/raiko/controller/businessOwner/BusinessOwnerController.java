@@ -11,4 +11,5 @@ public interface BusinessOwnerController {
     boolean createBusinessOwner(Admin admin, BusinessOwner businessOwner);
     BusinessOwner searchBusinessOwner(String firstName, String lastName);
     List<BusinessOwner> getAllBusinessOwners();
+    boolean editBusinessOwner(int id, BusinessOwner businessOwner);
 }
