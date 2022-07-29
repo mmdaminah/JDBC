@@ -6,13 +6,7 @@ import app.raiko.model.admin.domain.Admin;
 import java.util.Scanner;
 
 public class CreateAdmin {
-    private AdminController adminController;
-
-    public CreateAdmin(AdminController adminController) {
-        this.adminController = adminController;
-    }
-
-    public void show(Admin admin){
+    public static void create(AdminController adminController,Admin admin){
         if(admin.getSuperAdmin()){
         var reader = new Scanner(System.in);
         System.out.println("Please insert first name : ");

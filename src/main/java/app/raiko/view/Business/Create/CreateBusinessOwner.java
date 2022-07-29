@@ -1,4 +1,4 @@
-package app.raiko.view.Business;
+package app.raiko.view.Business.Create;
 
 import app.raiko.controller.businessOwner.BusinessOwnerController;
 import app.raiko.exception.NotFoundException;
@@ -9,10 +9,8 @@ import lombok.AllArgsConstructor;
 import java.util.Scanner;
 
 @AllArgsConstructor
-public class Create_businessOwner {
-    private BusinessOwnerController businessController;
-    private Admin admin;
-    public void createBusinessOwner(){
+public class CreateBusinessOwner {
+    public static void create(BusinessOwnerController businessController,Admin admin){
 
         System.out.println("please insert BusinessOwner data!!");
 
@@ -39,7 +37,7 @@ public class Create_businessOwner {
             showError(e.getMessage());
         }
     }
-    private void showError(String message) {
+    private static void showError(String message) {
         System.out.println(message);
     }
 }

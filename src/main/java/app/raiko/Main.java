@@ -1,9 +1,9 @@
 package app.raiko;
 
-import app.raiko.view.IndexViewFactory;
+import app.raiko.view.IndexView;
 
 public class Main {
   public static void main(String[] args) {
-    IndexViewFactory.create().mainMenu();
+    IndexView.start();
   }
 }

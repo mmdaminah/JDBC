@@ -6,12 +6,7 @@ import app.raiko.model.admin.domain.Admin;
 import java.util.Scanner;
 
 public class AdminChangePassword {
-    private AdminController adminController;
-
-    public AdminChangePassword(AdminController adminController) {
-        this.adminController = adminController;
-    }
-    public void show(Admin admin){
+    public static void change(AdminController adminController,Admin admin){
         System.out.println("Please Enter your old password");
         var reader = new Scanner(System.in);
         var oldPassword = reader.next();

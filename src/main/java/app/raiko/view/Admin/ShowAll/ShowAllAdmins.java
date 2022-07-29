@@ -1,20 +1,18 @@
-package app.raiko.view.Admin.AdminShow;
+package app.raiko.view.Admin.ShowAll;
 
 import app.raiko.controller.admin.AdminController;
 import app.raiko.model.admin.domain.Admin;
+import app.raiko.view.Admin.ShowInfo.AdminShowInfo;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class ShowAllAdmins {
-    AdminController adminController;
-
-
-   public void show(Admin admin){
+   public static void show(AdminController adminController,Admin admin){
 
        var AllAdmins=adminController.getAll(admin);
 
        var streamOfAdmins=AllAdmins.stream();
 
-       streamOfAdmins.forEach((admins -> AdminShowInfo.ShowInfo(admins)));
+       streamOfAdmins.forEach((admins -> AdminShowInfo.show(admins)));
     }
 }

@@ -1,52 +1,34 @@
-package app.raiko.view.Admin.AdminLogin;
+package app.raiko.view.Login.AdminLogin;
 
 import app.raiko.controller.admin.AdminController;
 import app.raiko.exception.NotFoundException;
 import app.raiko.model.admin.domain.Admin;
-import app.raiko.view.Menu.AdminMenu;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
+import java.util.Optional;
 import java.util.Scanner;
 
-@AllArgsConstructor
-@Setter
-@Getter
+
 public class AdminLogin {
-    private AdminController adminController;
-    private Admin admin;
-    private AdminMenu adminMenu;
-
-
-    public void show() {
-
+    public static Optional<Admin> show(AdminController adminController) {
         var countOfTry=0;
-
+        System.out.println("******Login******");
         do {
             System.out.println("please enter your username : ");
             var adminUserName = new Scanner(System.in).next();
             System.out.println("please enter your password : ");
             var adminPassword = new Scanner(System.in).next();
-
             try {
-                var LoginAdmin = adminController.LoginAdmin(adminUserName,adminPassword);
+                var loginedAdmin = adminController.LoginAdmin(adminUserName,adminPassword);
                 System.out.println("welcome");
-                setAdmin(LoginAdmin);
-                adminMenu.Loginmenu(admin);
-                return;
+                return Optional.of(loginedAdmin);
             } catch (NotFoundException e) {
                 countOfTry++;
                 showError(e.getMessage());
             }
-
-
         }while (countOfTry<3);
-
-
+        return Optional.empty();
     }
-
-    private void showError(String message) {
+    private static void showError(String message) {
         System.out.println(message);
     }
 }

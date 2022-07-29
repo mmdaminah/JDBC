@@ -1,4 +1,4 @@
-package app.raiko.view.Admin.SuperAdmin;
+package app.raiko.view.Login.SuperAdmin;
 
 import app.raiko.controller.admin.AdminController;
 import app.raiko.model.admin.domain.Admin;
@@ -6,14 +6,8 @@ import app.raiko.model.admin.domain.Admin;
 import java.util.Scanner;
 
 public class SuperAdmin {
-
-    private AdminController adminController;
-
-    public SuperAdmin(AdminController adminController) {
-        this.adminController = adminController;
-    }
-
-    public void show(){
+    public static void create(AdminController adminController){
+        System.out.printf("No Super User Found!%nCreating one :%n");
         var reader = new Scanner(System.in);
         System.out.println("Please insert first name : ");
         var firstName = reader.next();
@@ -40,7 +34,7 @@ public class SuperAdmin {
             System.out.println(e.getMessage());
         }
     }
-    public boolean getSuperAdmin(){
+    public static boolean get(AdminController adminController){
         return adminController.findSuperAdmin();
     }
 }
