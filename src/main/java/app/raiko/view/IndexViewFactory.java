@@ -3,13 +3,13 @@ package app.raiko.view;
 import app.raiko.controller.admin.AdminControllerImp;
 import app.raiko.model.admin.dao.AdminJdbcDao;
 import app.raiko.model.datasource.DataSource;
-import app.raiko.view.AdminChangePassword.AdminChangePassword;
-import app.raiko.view.AdminFounderView.AdminFounderView;
-import app.raiko.view.AdminLogin.AdminLogin;
-import app.raiko.view.AdminShow.AdminShowInfo;
-import app.raiko.view.AdminShow.ShowAllAdmins;
-import app.raiko.view.CreateAdmin.CreateAdmin;
-import app.raiko.view.SuperAdmin.SuperAdmin;
+import app.raiko.view.Admin.AdminChangePassword.AdminChangePassword;
+import app.raiko.view.Admin.AdminFounderView.AdminFounderView;
+import app.raiko.view.Admin.AdminLogin.AdminLogin;
+import app.raiko.view.Admin.AdminShow.AdminShowInfo;
+import app.raiko.view.Admin.AdminShow.ShowAllAdmins;
+import app.raiko.view.Admin.CreateAdmin.CreateAdmin;
+import app.raiko.view.Admin.SuperAdmin.SuperAdmin;
 import app.raiko.view.Menu.AdminMenu;
 
 public class IndexViewFactory {

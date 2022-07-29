@@ -1,6 +1,6 @@
 package app.raiko.controller.admin;
 
-import app.raiko.exception.NotFoundAdminException;
+import app.raiko.exception.NotFoundException;
 import app.raiko.model.admin.dao.AdminDao;
 import app.raiko.model.admin.domain.Admin;
 import lombok.AllArgsConstructor;
@@ -16,12 +16,12 @@ public class AdminControllerImp implements AdminController {
     return adminDao
         .get(id)
         .orElseThrow(
-            () -> new NotFoundAdminException("not found any admin with id : %s".formatted(id)));
+            () -> new NotFoundException("not found any admin with id : %s".formatted(id)));
   }
 
   @Override
   public Admin LoginAdmin(String userName, String password) {
-    return adminDao.login(userName,password).orElseThrow(()->new NotFoundAdminException("Admin not found"));
+    return adminDao.login(userName,password).orElseThrow(()->new NotFoundException("Admin not found"));
   }
 
   @Override

@@ -1,6 +1,6 @@
 package app.raiko.model.admin.dao;
 
-import app.raiko.exception.NotFoundAdminException;
+import app.raiko.exception.NotFoundException;
 import app.raiko.model.admin.domain.Admin;
 import app.raiko.model.datasource.DataSource;
 import lombok.AllArgsConstructor;
@@ -98,7 +98,7 @@ select * from admin where id = ? limit 1;
       throw new RuntimeException("something went wrong with the query");
     }
     }
-    else throw new NotFoundAdminException("Only super admin can view this list");
+    else throw new NotFoundException("Only super admin can view this list");
   }
 
 
