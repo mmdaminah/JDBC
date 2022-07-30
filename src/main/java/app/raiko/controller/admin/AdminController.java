@@ -12,5 +12,7 @@ public interface AdminController {
     boolean createAdmin(Admin admin);
    List<Admin> getAll(Admin admin);
    boolean createSuperAdmin(Admin admin);
-   void updatePassword(Integer id, String password);
+   void updatePassword(Integer id, String oldPassword,String currentPassword,String newPassword);
+   boolean checkPassword(String pass1,String pass2);
+   String encryptPassword(String password);
 }

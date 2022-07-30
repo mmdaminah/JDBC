@@ -14,6 +14,6 @@ public class Admin {
   private String username;
   private String password;
   private String phoneNumber;
-  private Integer creator=null;
+  private Admin creator;
   private Boolean superAdmin;
 }

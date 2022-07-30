@@ -14,14 +14,19 @@ public class AdminShowInfo {
                            last name : %s
                            username : %s
                            phone_number : %s
-                           creator : %d
+                           creator :
+                               ID : %d 
+                               First Name : %s
+                               Last Name : %s
                            isSuper : %b%n
                            """,
               admin.getFirstName(),
               admin.getLastName(),
               admin.getUsername(),
               admin.getPhoneNumber(),
-              admin.getCreator(),
+              admin.getCreator().getId(),
+              admin.getCreator().getFirstName(),
+              admin.getCreator().getLastName(),
               admin.getSuperAdmin());
    }
 }

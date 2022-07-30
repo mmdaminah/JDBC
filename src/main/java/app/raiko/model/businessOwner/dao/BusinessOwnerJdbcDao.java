@@ -17,7 +17,7 @@ public class BusinessOwnerJdbcDao implements BusinessOwnerDao{
 
 
     @Override
-    public boolean create_businessOwner(Admin admin, BusinessOwner businessOwner) {
+    public boolean createBusinessOwner(Admin admin, BusinessOwner businessOwner) {
         try(var connection = dataSource.getConnection()){
             var query = """
                    insert into business_owner( first_name, last_name,
@@ -115,7 +115,7 @@ public class BusinessOwnerJdbcDao implements BusinessOwnerDao{
         }
     }
     @Override
-    public boolean edit_businessOwner(Integer id, BusinessOwner businessOwner) {
+    public boolean editBusinessOwner(Integer id, BusinessOwner businessOwner) {
         try(var connection = dataSource.getConnection()){
             var query = "select * from business_owner where id = ?";
             try(var statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE)){

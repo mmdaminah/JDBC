@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public interface BusinessOwnerDao {
 
-    boolean create_businessOwner(Admin admin, BusinessOwner businessOwner);
+    boolean createBusinessOwner(Admin admin, BusinessOwner businessOwner);
     List<BusinessOwner> getAll();
     Optional<BusinessOwner> search(String firstName, String lastName);
     boolean delete(Integer id);
-    boolean edit_businessOwner(Integer id,BusinessOwner businessOwner);
+    boolean editBusinessOwner(Integer id, BusinessOwner businessOwner);
 
 }

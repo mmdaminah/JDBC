@@ -14,7 +14,7 @@ public class BusinessOwnerControllerImp implements BusinessOwnerController{
     private BusinessOwnerDao businessOwnerDao;
     @Override
     public boolean createBusinessOwner(Admin admin, BusinessOwner businessOwner) {
-        return businessOwnerDao.create_businessOwner(admin,businessOwner);
+        return businessOwnerDao.createBusinessOwner(admin,businessOwner);
     }
     public List<BusinessOwner> getAllBusinessOwners(){
         return businessOwnerDao.getAll();
@@ -26,6 +26,6 @@ public class BusinessOwnerControllerImp implements BusinessOwnerController{
     }
     @Override
     public boolean editBusinessOwner(int id, BusinessOwner businessOwner) {
-        return businessOwnerDao.edit_businessOwner(id,businessOwner);
+        return businessOwnerDao.editBusinessOwner(id,businessOwner);
     }
 }

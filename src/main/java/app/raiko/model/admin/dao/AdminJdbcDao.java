@@ -19,9 +19,7 @@ public class AdminJdbcDao implements AdminDao {
   public Optional<Admin> get(Integer id) {
     try (var connection = dataSource.getConnection()) {
 
-      var selectSql = """ 
-select * from admin where id = ? limit 1;
-""";
+      var selectSql = "select * from admin where id = ? limit 1";
 
       try (var statement = connection.prepareStatement(selectSql)) {
 
@@ -30,7 +28,7 @@ select * from admin where id = ? limit 1;
         ResultSet foundAdmin = statement.executeQuery();
 
         if (foundAdmin.next()) {
-          return Optional.of(
+          var admin = Optional.of(
               new Admin(
                       foundAdmin.getInt("id"),
                       foundAdmin.getString("first_name"),
@@ -38,8 +36,13 @@ select * from admin where id = ? limit 1;
                       foundAdmin.getString("username"),
                       foundAdmin.getString("password"),
                       foundAdmin.getString("phone_number"),
-                      foundAdmin.getInt("creator"),
+                      null,
                       foundAdmin.getBoolean("super_admin")));
+
+          var creatorId = foundAdmin.getInt("creator");
+          var creator = getCreator(admin.get(),creatorId);
+          admin.get().setCreator(creator);
+          return admin;
         } else return Optional.empty();
       }
 
@@ -48,47 +51,60 @@ select * from admin where id = ? limit 1;
       throw new RuntimeException("در اجرای پرس و جو از دیتابیس خطایی رخ داد!");
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
   @Override
-  public List<Admin> getAll(Admin admin) {
-
-    if (admin.getSuperAdmin()){
-
+  public Admin getCreator(Admin admin,Integer creator){
     try (var connection = dataSource.getConnection()) {
 
-      var selectSql = """
-          select * from admin ;
-""";
+      var selectSql = "select * from admin where id = ? limit 1";
 
       try (var statement = connection.prepareStatement(selectSql)) {
 
+        statement.setInt(1, creator);
+
+        ResultSet foundCreator = statement.executeQuery();
+
+        if (foundCreator.next()) {
+          return new Admin(
+                          foundCreator.getInt("id"),
+                          foundCreator.getString("first_name"),
+                          foundCreator.getString("last_name"),
+                          foundCreator.getString("username"),
+                          foundCreator.getString("password"),
+                          foundCreator.getString("phone_number"),
+                          null,
+                          foundCreator.getBoolean("super_admin"));
+        } else return admin;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException("در اجرای پرس و جو از دیتابیس خطایی رخ داد!");
+    }
+  }
+  @Override
+  public List<Admin> getAll(Admin admin) {
+    try (var connection = dataSource.getConnection()) {
+
+      var selectSql = "select * from admin";
+
+      try (var statement = connection.prepareStatement(selectSql)) {
 
         ResultSet foundAdmin = statement.executeQuery();
 
         var AllAdmins=new ArrayList<Admin>();
         while (foundAdmin.next()) {
-          AllAdmins.add(
-                  new Admin(
+          var tempAdmin = new Admin(
                           foundAdmin.getInt("id"),
                           foundAdmin.getString("first_name"),
                           foundAdmin.getString("last_name"),
                           foundAdmin.getString("username"),
                           foundAdmin.getString("password"),
                           foundAdmin.getString("phone_number"),
-                          foundAdmin.getInt("creator"),
-                          foundAdmin.getBoolean("super_admin")));
+                          null,
+                          foundAdmin.getBoolean("super_admin"));
+          var creatorId = foundAdmin.getInt("creator");
+          var creator = getCreator(tempAdmin,creatorId);
+          tempAdmin.setCreator(creator);
+          AllAdmins.add(tempAdmin);
         }
         return AllAdmins;
       }
@@ -97,8 +113,6 @@ select * from admin where id = ? limit 1;
       e.printStackTrace();
       throw new RuntimeException("something went wrong with the query");
     }
-    }
-    else throw new NotFoundException("Only super admin can view this list");
   }
 
 
@@ -109,26 +123,20 @@ select * from admin where id = ? limit 1;
   }
 
   @Override
-
-
-
   public Optional<Admin> login(String username, String password) {
     try (var connection = dataSource.getConnection()) {
 
-      var selectSql = """
-          select * from admin where username = ? and password= ? ;
-""";
+      var selectSql = "select * from admin where username = ? and password= ?";
 
       try (var statement = connection.prepareStatement(selectSql)) {
 
         statement.setString(1, username);
         statement.setString(2, password);
 
-
 var resultset=statement.executeQuery();
         if ( resultset.next() ) {
 
-          return Optional.of(
+          var admin = Optional.of(
                   new Admin(
                           resultset.getInt("id"),
                           resultset.getString("first_name"),
@@ -136,8 +144,12 @@ var resultset=statement.executeQuery();
                           resultset.getString("username"),
                           resultset.getString("password"),
                           resultset.getString("phone_number"),
-                          resultset.getInt("creator"),
+                          null,
                           resultset.getBoolean("super_admin")));
+          var creatorId = resultset.getInt("creator");
+          var creator = getCreator(admin.get(),creatorId);
+          admin.get().setCreator(creator);
+          return admin;
         } else return Optional.empty();
       }
 
@@ -151,8 +163,6 @@ var resultset=statement.executeQuery();
   public boolean delete(Integer id) {
     return false;
   }
-
-
 
   @Override
   public boolean findSuperAdmin(){
@@ -183,7 +193,7 @@ var resultset=statement.executeQuery();
         statement.setString(3,admin.getUsername());
         statement.setString(4,admin.getPassword());
         statement.setString(5,admin.getPhoneNumber());
-        statement.setInt(6,admin.getCreator());
+        statement.setInt(6,admin.getCreator().getId());
         statement.setBoolean(7,admin.getSuperAdmin());
         return statement.execute();
       }
@@ -199,9 +209,9 @@ var resultset=statement.executeQuery();
       var query = """
                    insert into admin( first_name, last_name,
                                        username , password, 
-                                       phone_number, 
+                                       phone_number, creator,
                                        super_admin)
-                    values(?,?,?,?,?,?)                    
+                    values(?,?,?,?,?,?,?)                    
                     """;
       try(var statement = connection.prepareStatement(query)){
         statement.setString(1,admin.getFirstName());
@@ -209,7 +219,8 @@ var resultset=statement.executeQuery();
         statement.setString(3,admin.getUsername());
         statement.setString(4,admin.getPassword());
         statement.setString(5,admin.getPhoneNumber());
-        statement.setBoolean(6,admin.getSuperAdmin());
+        statement.setObject(6,null);
+        statement.setBoolean(7,admin.getSuperAdmin());
         return statement.execute();
       }
     }
@@ -232,6 +243,57 @@ var resultset=statement.executeQuery();
       throw new RuntimeException(e);
     }
   }
+
+  @Override
+  public boolean usernameExits(String username) {
+    try(var connection = dataSource.getConnection()){
+      var query = """
+      select  
+      case when count(*) > 0 then true
+      else false 
+      end
+      from admin where username = ?
+      """;
+      try(var statement = connection.prepareStatement(query)){
+        statement.setString(1,username);
+        var result = statement.executeQuery();
+        result.next();
+        return result.getBoolean(1);
+      }
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public Admin getAdminByUsername(String username) {
+    try(var connection = dataSource.getConnection()){
+      var query = "select * from admin where username = ?";
+      try(var statement = connection.prepareStatement(query)){
+        statement.setString(1,username);
+        var result = statement.executeQuery();
+        result.next();
+        var admin = new Admin(
+                result.getInt("id"),
+                result.getString("first_name"),
+                result.getString("last_name"),
+                result.getString("username"),
+                result.getString("password"),
+                result.getString("phone_number"),
+                null,
+                result.getBoolean("super_admin"));
+        var creatorId = result.getInt("creator");
+        var creator = getCreator(admin,creatorId);
+        admin.setCreator(creator);
+        return admin;
+      }
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
 }
 
 

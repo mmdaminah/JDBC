@@ -25,7 +25,7 @@ public class SuperAdmin {
                             null,
                             firstName,lastName,
                             username,password,
-                            phoneNumber,0,
+                            phoneNumber,null,
                             true
                     )
             );

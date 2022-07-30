@@ -25,7 +25,7 @@ public class CreateAdmin {
                         null,
                         firstName,lastName,
                         username,password,
-                        phoneNumber,admin.getId(),
+                        phoneNumber,admin,
                         false
                 )
         );
