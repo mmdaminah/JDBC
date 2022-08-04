@@ -2,7 +2,7 @@ package app.raiko.model.businessOwner.dao;
 
 import app.raiko.model.admin.domain.Admin;
 import app.raiko.model.businessOwner.domain.BusinessOwner;
-import app.raiko.model.datasource.DataSource;
+import app.raiko.model.datasource.JdbcDataSource;
 import lombok.AllArgsConstructor;
 
 import java.sql.ResultSet;
@@ -13,12 +13,12 @@ import java.util.Optional;
 
 @AllArgsConstructor
 public class BusinessOwnerJdbcDao implements BusinessOwnerDao{
-    private final DataSource dataSource;
+    private final JdbcDataSource dataSource;
 
 
     @Override
     public boolean createBusinessOwner(Admin admin, BusinessOwner businessOwner) {
-        try(var connection = dataSource.getConnection()){
+        try(var connection = dataSource.connection()){
             var query = """
                    insert into business_owner( first_name, last_name,
                                         national_code,
@@ -40,7 +40,7 @@ public class BusinessOwnerJdbcDao implements BusinessOwnerDao{
         }
     }
     public List<BusinessOwner> getAll(){
-        try(var connection = dataSource.getConnection()){
+        try(var connection = dataSource.connection()){
             var query = "select * from business_owner";
             try(var statement = connection.prepareStatement(query)){
                 var businessOwners = new ArrayList<BusinessOwner>();
@@ -70,7 +70,7 @@ public class BusinessOwnerJdbcDao implements BusinessOwnerDao{
 
     @Override
     public Optional<BusinessOwner> search(String firstName, String lastName) {
-        try (var connection = dataSource.getConnection()) {
+        try (var connection = dataSource.connection()) {
             var query = """
             select * from business_owner
             where first_name = ? and last_name = ?
@@ -103,7 +103,7 @@ public class BusinessOwnerJdbcDao implements BusinessOwnerDao{
 
     @Override
     public boolean delete(Integer id) {
-        try(var connection = new DataSource().getConnection()){
+        try(var connection = new JdbcDataSource().connection()){
             var query = "delete from business_owner where id = ?";
             try(var statement = connection.prepareStatement(query)){
                 statement.setInt(1,id);
@@ -116,7 +116,7 @@ public class BusinessOwnerJdbcDao implements BusinessOwnerDao{
     }
     @Override
     public boolean editBusinessOwner(Integer id, BusinessOwner businessOwner) {
-        try(var connection = dataSource.getConnection()){
+        try(var connection = dataSource.connection()){
             var query = "select * from business_owner where id = ?";
             try(var statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE)){
                 statement.setInt(1,id);

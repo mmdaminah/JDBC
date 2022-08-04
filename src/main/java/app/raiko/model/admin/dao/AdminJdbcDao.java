@@ -1,10 +1,10 @@
 package app.raiko.model.admin.dao;
 
-import app.raiko.exception.NotFoundException;
 import app.raiko.model.admin.domain.Admin;
-import app.raiko.model.datasource.DataSource;
+import app.raiko.model.datasource.JdbcDataSource;
 import lombok.AllArgsConstructor;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ import java.util.Optional;
 
 @AllArgsConstructor
 public class AdminJdbcDao implements AdminDao {
-  private final DataSource dataSource;
+  private final JdbcDataSource<Connection> dataSource;
 
   @Override
   public Optional<Admin> get(Integer id) {
-    try (var connection = dataSource.getConnection()) {
+    try (var connection = dataSource.connection()) {
 
       var selectSql = "select * from admin where id = ? limit 1";
 
@@ -53,7 +53,7 @@ public class AdminJdbcDao implements AdminDao {
   }
   @Override
   public Admin getCreator(Admin admin,Integer creator){
-    try (var connection = dataSource.getConnection()) {
+    try (var connection = dataSource.connection()) {
 
       var selectSql = "select * from admin where id = ? limit 1";
 
@@ -82,7 +82,7 @@ public class AdminJdbcDao implements AdminDao {
   }
   @Override
   public List<Admin> getAll(Admin admin) {
-    try (var connection = dataSource.getConnection()) {
+    try (var connection = dataSource.connection()) {
 
       var selectSql = "select * from admin";
 
@@ -124,7 +124,7 @@ public class AdminJdbcDao implements AdminDao {
 
   @Override
   public Optional<Admin> login(String username, String password) {
-    try (var connection = dataSource.getConnection()) {
+    try (var connection = dataSource.connection()) {
 
       var selectSql = "select * from admin where username = ? and password= ?";
 
@@ -166,7 +166,7 @@ var resultset=statement.executeQuery();
 
   @Override
   public boolean findSuperAdmin(){
-    try(var connection = dataSource.getConnection()){
+    try(var connection = dataSource.connection()){
       var query = "select * from admin where super_admin = true";
       try(var statement = connection.prepareStatement(query)){
         var result = statement.executeQuery();
@@ -179,7 +179,7 @@ var resultset=statement.executeQuery();
   }
   @Override
   public boolean create(Admin admin){
-    try(var connection = dataSource.getConnection()){
+    try(var connection = dataSource.connection()){
       var query = """
                    insert into admin( first_name, last_name,
                                        username , password, 
@@ -205,7 +205,7 @@ var resultset=statement.executeQuery();
 
   @Override
   public boolean createSuperAdmin(Admin admin){
-    try(var connection = dataSource.getConnection()){
+    try(var connection = dataSource.connection()){
       var query = """
                    insert into admin( first_name, last_name,
                                        username , password, 
@@ -229,7 +229,7 @@ var resultset=statement.executeQuery();
     }
   }
   public void updatePassword(Integer id, String password){
-    try(var connection = dataSource.getConnection()){
+    try(var connection = dataSource.connection()){
       var query = "select * from admin where id = ?";
       try(var statement = connection.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE)){
         statement.setInt(1,id);
@@ -246,7 +246,7 @@ var resultset=statement.executeQuery();
 
   @Override
   public boolean usernameExits(String username) {
-    try(var connection = dataSource.getConnection()){
+    try(var connection = dataSource.connection()){
       var query = """
       select  
       case when count(*) > 0 then true
@@ -268,7 +268,7 @@ var resultset=statement.executeQuery();
 
   @Override
   public Admin getAdminByUsername(String username) {
-    try(var connection = dataSource.getConnection()){
+    try(var connection = dataSource.connection()){
       var query = "select * from admin where username = ?";
       try(var statement = connection.prepareStatement(query)){
         statement.setString(1,username);

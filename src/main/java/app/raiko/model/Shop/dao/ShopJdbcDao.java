@@ -1,8 +1,7 @@
 package app.raiko.model.Shop.dao;
 
 import app.raiko.model.Shop.domain.Shop;
-import app.raiko.model.businessOwner.domain.BusinessOwner;
-import app.raiko.model.datasource.DataSource;
+import app.raiko.model.datasource.JdbcDataSource;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,14 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class ShopJdbcDao implements ShopDao {
-    private final DataSource dataSource;
+    private final JdbcDataSource dataSource;
 
-    public ShopJdbcDao(DataSource dataSource) {
+    public ShopJdbcDao(JdbcDataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     public void updateShop(Shop shop){
-        try(var connection = new DataSource().getConnection()){
+        try(var connection = new JdbcDataSource().connection()){
             var query = "select * from shop where id = ?";
             try(var statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE)){
@@ -39,7 +38,7 @@ public class ShopJdbcDao implements ShopDao {
 
     @Override
     public List<Shop> getAllShops() {
-        try(var connection = dataSource.getConnection()){
+        try(var connection = dataSource.connection()){
             var query = "select * from shop";
             try(var statement = connection.prepareStatement(query)){
                 var shops = new ArrayList<Shop>();
@@ -71,7 +70,7 @@ public class ShopJdbcDao implements ShopDao {
 
     @Override
     public Optional<Shop> getShop(Integer id) {
-        try (var connection = dataSource.getConnection()) {
+        try (var connection = dataSource.connection()) {
             var query = "select * from shop where id = ?";
             try (var statement = connection.prepareStatement(query)) {
 
