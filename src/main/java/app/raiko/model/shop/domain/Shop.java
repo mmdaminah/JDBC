@@ -1,4 +1,4 @@
-package app.raiko.model.Shop.domain;
+package app.raiko.model.shop.domain;
 
 import app.raiko.model.admin.domain.Admin;
 import app.raiko.model.businessOwner.domain.BusinessOwner;

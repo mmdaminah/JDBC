@@ -1,6 +1,6 @@
 package app.raiko.controller.shop;
 
-import app.raiko.model.Shop.domain.Shop;
+import app.raiko.model.shop.domain.Shop;
 
 import java.util.List;
 

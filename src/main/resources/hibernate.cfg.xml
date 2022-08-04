@@ -17,7 +17,7 @@
         <!--		&lt;!&ndash; Set the current session context &ndash;&gt;-->
         <!--		<property name="current_session_context_class">thread</property>-->
         <mapping class="app.raiko.model.admin.domain.Admin"/>
-        <mapping class="app.raiko.model.Shop.domain.Shop"/>
+        <mapping class="app.raiko.model.shop.domain.Shop"/>
         <mapping class="app.raiko.model.businessOwner.domain.BusinessOwner"/>
     </session-factory>
 </hibernate-configuration>

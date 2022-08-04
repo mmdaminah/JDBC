@@ -1,7 +1,7 @@
 package app.raiko.view.Shop;
 
 import app.raiko.controller.shop.ShopControllerImp;
-import app.raiko.model.Shop.dao.ShopJdbcDao;
+import app.raiko.model.shop.dao.ShopJdbcDao;
 import app.raiko.model.datasource.JdbcDataSource;
 
 public class ShopViewFactory {

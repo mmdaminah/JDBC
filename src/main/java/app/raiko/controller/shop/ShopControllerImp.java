@@ -1,7 +1,7 @@
 package app.raiko.controller.shop;
 import app.raiko.exception.NotFoundException;
-import app.raiko.model.Shop.dao.ShopJdbcDao;
-import app.raiko.model.Shop.domain.Shop;
+import app.raiko.model.shop.dao.ShopJdbcDao;
+import app.raiko.model.shop.domain.Shop;
 
 import java.util.List;
 

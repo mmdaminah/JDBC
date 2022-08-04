@@ -1,10 +1,9 @@
 package app.raiko.model.businessOwner.domain;
 
-import app.raiko.model.Shop.domain.Shop;
+import app.raiko.model.shop.domain.Shop;
 import app.raiko.model.admin.domain.Admin;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package app.raiko.model.Shop.dao;
+package app.raiko.model.shop.dao;
 
-import app.raiko.model.Shop.domain.Shop;
+import app.raiko.model.shop.domain.Shop;
 
 import java.util.List;
 import java.util.Optional;

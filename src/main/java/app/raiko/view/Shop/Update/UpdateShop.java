@@ -2,9 +2,7 @@ package app.raiko.view.Shop.Update;
 
 import app.raiko.controller.shop.ShopController;
 import app.raiko.exception.NotFoundException;
-import app.raiko.model.Shop.domain.Shop;
-import app.raiko.view.Shop.ShopViewFactory;
-import app.raiko.view.Shop.ShopViewIndex;
+import app.raiko.model.shop.domain.Shop;
 
 import java.util.Scanner;
 

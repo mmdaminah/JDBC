@@ -1,6 +1,6 @@
 package app.raiko.model.admin.domain;
 
-import app.raiko.model.Shop.domain.Shop;
+import app.raiko.model.shop.domain.Shop;
 import app.raiko.model.businessOwner.domain.BusinessOwner;
 import jakarta.persistence.*;
 import lombok.*;
