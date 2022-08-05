@@ -2,8 +2,12 @@ package app.raiko.model.shop.domain;
 
 import app.raiko.model.admin.domain.Admin;
 import app.raiko.model.businessOwner.domain.BusinessOwner;
+import app.raiko.model.category.domain.Category;
+import app.raiko.model.workingdays.domain.WorkingDays;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,4 +34,14 @@ public class Shop {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     private BusinessOwner owner;
+
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "category_shop",
+            joinColumns = @JoinColumn(name = "shop_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
+    @OneToMany(mappedBy = "shop")
+    private List<WorkingDays> workingDays;
 }
